@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ADMIN</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <style media="screen">
+      .list {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr;
+
+      }
+
+      .list .col {
+        font-weight: bold;
+        text-align: center;
+        padding: 10px 0;
+        border: 1px solid grey;
+      }
+
+      .list .col.function {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 5px;
+      }
+
+      #listForm {
+        display: grid;
+        grid-template-columns: 1fr 1fr 0.5fr;
+        grid-column-gap: 10px;
+        height: 50px;
+      }
+    </style>
+  </head>
+
+  <script type="text/javascript">
+  		var result = <%- JSON.stringify(locals) %>;
+  		console.log(result);
+  </script>
+  <body>
+    <h1>현재 리스트</h1>
+
+    <div class="list">
+      <span class="col">이름</span>
+      <span class="col">주소</span>
+      <span class="col">상태</span>
+      <span class="col">변경</span>
+
+      <% for(var i = 0; i < locals.list.length; ++i) { %>
+        <span class="col"><%=locals.list[i].name %></span>
+        <span class="col"><%=locals.list[i].url %></span>
+        <span class="col"><%=locals.list[i].active ? '활성' : '비활성' %></span>
+        <span class="col function">
+          <input type="button" name="" value="활성화" onclick="javascript:activate('<%= locals.list[i]._id %>')">
+          <input type="button" name="" value="비활성화" onclick="javascript:deactivate('<%= locals.list[i]._id %>')">
+          <input type="button" name="" value="삭제" onclick="javascript:del('<%= locals.list[i]._id %>')">
+        </span>
+      <% } %>
+    </div>
+
+    <h1>리스트 추가</h1>
+    <form id="listForm">
+      <input type="text" id="name" name="name" value="" placeholder="사이트이름">
+      <input type="text" id="url" name="url" value="" placeholder="http://www.soemthing.com">
+
+      <input type="button" name="" value="등록하기" onclick="javascript:addList()">
+      <span class="err"></span>
+    </form>
+    <script type="text/javascript">
+      function addList() {
+        var url = $("#listForm #url").val();
+        var name =  $("#listForm #name").val();
+        console.log(url);
+
+        $.post('/api/addList', { name: name, url: url }, function(res) {
+          console.log(res);
+          if(res.success) {
+            alert('등록완료');
+            location.reload();
+          } else {
+            alert('오류');
+          }
+        }, 'json');
+      }
+
+      function activate(id) {
+        $.post('/api/activate', { _id : id }, function(res) {
+          console.log(res);
+          if(res.success) {
+            location.reload();
+          } else {
+            alert('오류');
+          }
+        });
+      }
+
+      function deactivate(id) {
+        $.post('/api/deactivate', { _id : id }, function(res) {
+          console.log(res);
+          if(res.success) {
+            location.reload();
+          } else {
+            alert('오류');
+          }
+        });
+      }
+
+      function del(id) {
+        $.post('/api/delete', { _id : id }, function(res) {
+          if(res.success) {
+            location.reload();
+          } else {
+            alert('오류');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
