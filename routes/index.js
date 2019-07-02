@@ -37,7 +37,7 @@ function crawlerPromise(options) {
 router.get('/', async function(req, res, next) {
   var list = await List.find({});
 
-  res.render('index', { title: '오늘의링크', list: list });
+  res.render('index', { title: 'HREF만', list: list });
 });
 
 
