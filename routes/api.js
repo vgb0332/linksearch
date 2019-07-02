@@ -10,7 +10,7 @@ function crawlerPromise(options) {
   return new Promise((resolve, reject) => {
     options.callback = (err, res, done) => {
       if (err) {
-        console.log(error);
+        console.log(err);
         reject(err);
       } else {
         var $ = cheerio.load(res.body);
@@ -76,8 +76,13 @@ router.post('/getList', async function(req, res, next) {
     }
     else {
       var url = list.url;
-      var links = await crawlerPromise({ uri: url });
-      res.send({success: true, links: links});
+      try {
+        var links = await crawlerPromise({ uri: url });
+        res.send({success: true, links: links});
+      } catch(err) {
+        res.send({success: false, error: err});
+      }
+
     }
   });
   //
