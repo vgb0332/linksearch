@@ -35,7 +35,7 @@ function crawlerPromise(options) {
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  var list = await List.find({});
+  var list = await List.find({active:1});
 
   res.render('index', { title: 'HREF만', list: list });
 });

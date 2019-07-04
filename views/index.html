@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/main.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery.sticky.js'></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121327551-2"></script>
@@ -39,17 +40,23 @@
       <%= title %>
     </div>
 
+    <div id="sub-header">
+      <% for(var i = 0; i < locals.list.length; ++i) { %>
+        <span class="">
+          <a id="<%=locals.list[i].name%>"><%= locals.list[i].name %></a>
+        </span>
+      <% } %>
+    </div>
+
     <div class="container">
       <div class="main">
         <% for(var i = 0 ; i < locals.list.length; ++i) { %>
-        <% if(!locals.list[i].active) continue; %>
         <div class="row" >
 
-          <div class="index">
-            <span><%= locals.list[i].name %></span>
+          <div name="<%=locals.list[i].name%>" class="index">
+            <span name="<%= locals.list[i].name %>"><%= locals.list[i].name %></span>
             <span><a target="_blank" href="<%- locals.list[i].url %>"><%= locals.list[i].url %></a></span>
             <span id="<%=locals.list[i]._id%>" url="<%=locals.list[i].url%>" class="expand" active='0'>▼</span>
-
           </div>
 
           <div class="content" active='0'>
@@ -60,10 +67,19 @@
     </div>
 
 
-
-
     <script type="text/javascript">
       $(function() {
+         $("#sub-header").sticky({topSpacing:0, zIndex:2});
+
+         $("#sub-header > span").click(function() {
+           var target = $(this).find("a").attr('id');
+           console.log(target);
+           console.log("span[name="+target+"] .name");
+           console.log($("span[name="+target+"]").offset().top);
+           $("html").animate({
+                scrollTop: $("span[name="+target+"]").offset().top - 100
+            }, 500);
+         });
 
          $(".row .index .expand").click(function() {
 

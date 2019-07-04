@@ -6,7 +6,6 @@ html, body {
   padding: 0;
   margin: 0;
   font-family: 'Do Hyeon', sans-serif;
-  background: 'pink'
 }
 
 .header {
@@ -20,6 +19,23 @@ html, body {
   padding: 20px 0;
 }
 
+#sub-header {
+  overflow-x: scroll;
+  white-space: nowrap;
+  background-color: white;
+  z-index: 10;
+
+}
+
+#sub-header > span {
+  width: 25%;
+  padding: 10px 10px;
+  margin: 10px 0;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid #bada55;
+  cursor: pointer;
+}
 .container {
   width: 1200px;
   margin: auto;
@@ -59,6 +75,7 @@ html, body {
 
 .main .row span {
   padding: 10px  0;
+  word-break: break-all;
 }
 
 .main .row .expand {
@@ -94,5 +111,9 @@ html, body {
     grid-template-columns: 1fr 2fr;
   }
 
+
+  ::-webkit-scrollbar {
+      display: none;
+  }
 
 }
