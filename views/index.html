@@ -127,6 +127,16 @@
                    $(self).find('.expand').attr('active', '1');
                    $(self).siblings('.content').slideDown();
                    $(self).find('.expand').text('▲');
+
+                   var action = url;
+                   var category =  $(this).parents("ul").attr('category');
+
+                   if(action && category && label) {
+                      gtag('event', action, {
+                        "event_category" : category,
+                        "event_label" : '화살표클릭'
+                      });
+                   }
                    $("#loader").hide();
                  } else {
                    alert('링크가 막힌것 같습니다. 다른 곳을 해보세요!');
