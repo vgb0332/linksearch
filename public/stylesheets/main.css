@@ -16,24 +16,24 @@ html, body {
   color: #111;
   font-weight: bold;
   font-size: 140%;
-  padding: 20px 0;
+  padding: 0;
 }
 
 #sub-header {
-  overflow-x: scroll;
-  white-space: nowrap;
+  width: 1200px;
+  margin: auto;
   background-color: white;
   z-index: 10;
 
 }
 
 #sub-header > span {
-  width: 25%;
-  padding: 10px 10px;
+  width: 15%;
+  padding: 20px 10px;
   margin: 10px 0;
   text-align: center;
   display: inline-block;
-  border: 1px solid #bada55;
+  border: 2px solid #bada55;
   cursor: pointer;
 }
 .container {
@@ -74,7 +74,7 @@ html, body {
 }
 
 .main .row span {
-  padding: 10px  0;
+  padding: 20px  0;
   word-break: break-all;
 }
 
@@ -92,6 +92,7 @@ html, body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 1px solid grey;
+  border-bottom: 0px;
   align-items: center;
   width: 100%;
   word-break: break-word
